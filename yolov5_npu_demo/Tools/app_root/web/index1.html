@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<META http-equiv="X-UA-Compatible" content="IE=8">
+<title>SDEV 模板HTML</title>
+<script type="text/javascript" src="./jquery.js"></script>
+<style type="text/css">
+html, body {
+    background: #d5d5d5;
+}
+/*reset*/
+ul,li {
+    padding: 0px;
+    margin: 0px;
+    list-style: none;
+}
+
+.ui-form-item {
+    padding-bottom: 10px;
+}
+
+/*fn*/
+.fn-height40 {
+    height: 40px;
+}
+
+.fn-left {
+    float: left;
+}
+
+.fn-hide {
+    display: none;
+}
+
+/*main*/
+.top {
+    font-size: 20px;
+}
+
+.main {
+    padding-left: 20px;
+}
+
+.login-wrap li {
+    float: left;
+    margin-left: 40px;
+}
+
+.login-wrap li span {
+    float: left;
+    width: 80px;
+}
+
+.video-wrap {
+    width: 640px;
+    height: 480px;
+    background: #000;
+}
+
+.btn-wrap {
+    margin-left: 20px;
+}
+
+.btn-input {
+    width: 100px;
+}
+.show-text {
+    border: 1px solid #ccc;
+    height: 200px;
+    width: 600px;
+    margin: 10px 0;
+    overflow: scroll;
+}
+#sdev_video_loading {
+    width: 640px;
+    height: 480px;
+    background: #000;
+    color: #fff;
+    margin-top: -480px;
+    line-height: 480px;
+    text-align: center;
+    font-size: 50px;
+}
+#sdev_stream_wrap {
+    width: 640px;
+    height: 480px;
+}
+
+#shapeInfoArea {
+    width: 200px;
+    height: 200px;
+}
+</style>
+</head>
+<body>
+<div class="main">
+    <div class="fn-left">
+        <div id="sdev_stream_wrap"></div>
+    </div>
+    <div class="btn-wrap fn-left">
+        <!-- <div class="ui-form-item">
+            用户名：<input type="text" id="username">
+            密码：<input type="text" id="password">
+        </div>
+        <div class="ui-form-item">
+            ip: <input type="text" id="ip">
+            port: <input type="text" id="port">
+            <button id="manualLogin">手动登录</button>
+        </div> -->
+        <div class="ui-form-item">
+            图形类型：
+            <select id="shapeTypeSel">
+                <option value="Polygon">多边形</option>
+            </select>
+            <button id="CreateShape">创建图形</button>
+			<button id="SaveShape">保存图形</button>
+        </div>
+    </div>
+</div>
+
+<!-- <script src="./index.js"></script> -->
+<script src='./index2.js'></script>
+</body>
+</html>

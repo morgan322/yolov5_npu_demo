@@ -1,0 +1,85 @@
+[location]
+url = http://event.huoyanzn.com:8080/admin-api/device/biz-device-data/uploadEventData
+savepath = /var/tmp/
+bgurl = https://iot.bkcityinfo.com/iot/telemetry/v1/file-manage/sign-upload-url-suffix?suffix=png&type=AICameraWarnPic
+bpurl = https://iot.bkcityinfo.com/iot/telemetry/v1/rubbish/warning/setWarning
+ugurl = http://8.134.19.27:8080/admin-api/device/biz-device/getDeviceSoftwareInfo?deviceCode=
+productCode = CAMERAVDXH
+deviceCode = 44030600091320537390
+securityCode = f212ea0de5a4cc353c68fac25e84a053
+hostname = 8.134.19.27
+port = 5672
+hydeviceCode = HY2022120001
+admin = admin
+password = MagicEyes123$
+overtag =  垃圾桶满溢
+persontag = 来人提醒
+bagtag = 厨余未破袋
+rubbishtag = 暴露垃圾
+workertag = 督导员离岗
+overtip = 垃圾桶满溢
+persontip = 来人提醒
+bagtip = 厨余未破袋
+workertip = 督导员离岗
+rubbishtip = 暴露垃圾
+[params]
+poconf = 35
+ruconf = 40
+ptime = 30
+rucout = 100
+overcout = 5
+poly_x1 = 0
+poly_y1 = 0
+poly_x2 = 1920
+poly_y2 = 0
+poly_x3 = 1920
+poly_y3 = 1080
+poly_x4 = 0
+poly_y4 = 1080
+poly_person_x1 = 0
+poly_person_y1 = 0
+poly_person_x2 = 1920
+poly_person_y2 = 0
+poly_person_x3 = 1920
+poly_person_y3 = 1080
+poly_person_x4 = 0
+poly_person_y4 = 1080
+poly_podai_x1 = 495
+poly_podai_y1 = 115
+poly_podai_x2 = 1297
+poly_podai_y2 = 651
+poly_podai_x3 = 1375
+poly_podai_y3 = 1049
+poly_podai_x4 = 257
+poly_podai_y4 = 449
+[overflow]
+start_hour = 5
+start_min = 0
+end_hour = 23
+end_min = 59
+interval = 10
+[rubbish]
+start_hour = 6
+start_min = 30
+end_hour = 19
+end_min = 0
+interval = 120
+[bag]
+start_hour = 5
+start_min = 0
+end_hour = 23
+end_min = 59
+interval = 60
+[worker]
+start_hour = 18
+start_min = 55
+end_hour = 21
+end_min = 5
+interval = 10
+[person]
+start_hour = 0
+start_min = 1
+end_hour = 23
+end_min = 59
+interval = 60
+

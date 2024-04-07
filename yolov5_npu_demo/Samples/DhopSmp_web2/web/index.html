@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <META http-equiv="X-UA-Compatible" content="IE=8">
+    <title>APP私有配置界面</title>
+    <script type="text/javascript" src="./jquery.js"></script>
+    <style type="text/css">
+        html,
+        body {
+            background: #d5d5d5;
+            margin: 0px;
+            padding: 0px;
+            font-family: Helvetica, Arial, SimSun, "WenQuanYi Micro Hei", "AR PL ShanHeiSun Uni", "AR PL ZenKai Uni", sans-serif;
+            font-size: 12px;
+        }
+
+        #video_preview {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            margin: 0px;
+            padding: 0px;
+            width: 450px;
+            height: 340px;
+            background-color: #000;
+        }
+
+        #config_panel {
+            position: absolute;
+            top: 0px;
+            left: 470px;
+        }
+
+        .app-ui-field {
+            margin-bottom: 10px;
+            height: 20px;
+            line-height: 20px;
+        }
+
+        .app-ui-field>div {
+            float: left;
+        }
+
+        .app-ui-field>.label {
+            width: 100px;
+        }
+
+        .app-ui-field>.input {
+            width: 320px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="video_preview"></div>
+    <div id="config_panel">
+        <div class="app-ui-field">
+            <div class="label">目标排除区</div>
+            <div class="input"><input type="button" value="绘制排除区" id="draw-btn3"></div>
+        </div>
+        <div class="app-ui-field">
+            <div class="input"><input type="button" value="保存" id="save-btn"></div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+
+    // 导入SPlayer组件
+    var SPlayer = top.SPlayer;
+    /*
+    下面的代码，执行顺序是：
+    1. 创建SPlayer，注册SPlayer的onLoad的回调函数
+    1.1 SPlayer加载完成后，会执行onLoad中注册的回调函数；
+    1.2 在onLoad回调函数中，进行自动登录，并注册登录成功后的回调函数loginSessedFn
+    1.2.1 登录成功后，执行loginSessedFn，在这里会创建Shape，并且通过Shape创建图形绘制层（用于绘制检测区和检测线等）
+    1.2.1.1 图形层创建成功后，本地的资源基本就绪，就可以从设备端拉起配置了，这里是执行load_param()
+    1.2.1.1 本示例中的load_param并没有真正的从设备中获取配置，该函数是演示了获取到配置后，如何在界面中还原显示出来。
+    2. 注册SPlayer的onDestory，必要的情况下用于界面销毁时处理
+    3. 注册SPlayer的onShapeChange，这个是当图形绘制内容发生变化时，可以立即通知出来，以便能够及时的获取到最小的图形信息
+    4. 后面就是针对几个按钮，增加点击事件，进行响应
+    */
+
+    // 如果是被嵌入到大华产品中，并且能够获取到SPlayer组件
+    if (SPlayer != null && SPlayer != undefined) {
+
+        var global_info = {
+            player: null,
+            shape: null,
+            containerID: null,
+            exclusion_zone: {
+                shapeId: null,
+                data: null
+            }
+        };
+
+        global_info.player = new SPlayer(this);
+
+        function checkVersion() {
+            var result = global_info.player.checkVersion('1.0.1');
+            if (result === SPlayer.VERSION_UNMATCHED) {
+                console.log('版本未捕获，可能太新了');
+            } else if (result === SPlayer.VERSION_LOW) {
+                console.log('版本太老了， 可以更新更新的程序');
+            } else {
+                console.log('版本匹配');
+            }
+        }
+
+        // 初始化配置参数
+        function load_param() {
+            var reqURL = "/DHOP_API/" + global_info.player.getAppName() + "/getConfig";
+            $.ajax({
+                url: reqURL,
+                type: "get",
+                dataType: "json",
+                error: function (xhr) {
+                    console.log("失败了");
+                },
+                success: function (response, status, xhr) {
+                    console.log("获取成功");
+
+                    // response中的内容，格式见dhop_smp_web.c文件中的doGet函数
+                    console.log(response);
+
+                    // 设置加载参数后，显示排除区的信息
+                    global_info.exclusion_zone.data = response.exclusionZone;
+                    var data1 = {
+                        ExclusionZone: response.exclusionZone
+                    }
+                    var polygonData = JSON.stringify(data1);
+                    global_info.shape.CreateMainShape(global_info.containerID, 'Polygon', 'Polygon', 'ExclusionZone', polygonData, '').done(function (shapeId) {
+                        global_info.exclusion_zone.shapeId = shapeId;
+                        global_info.shape.SetShapeName(shapeId, "目标排除区");
+                    });
+                }
+            });
+        }
+
+        // 视频连接成功后
+        function loginSessedFn(loginStatus) {
+            console.log('loginStatus');
+            checkVersion();
+            global_info.shape = global_info.player.Shape;
+            if (global_info.shape != null) {
+                // 创建绘制层，后面绘制检测区
+                global_info.shape.CreateMainContainer().done(function (containerID) {
+                    global_info.containerID = containerID;
+
+                    // 从设备中加载历史配置
+                    load_param();
+                });
+            }
+        }
+
+        // 图像绘制发生变更时触发
+        global_info.player.onShapeChange(function (res) {
+            if (res.shapeID == global_info.exclusion_zone.shapeId) {
+                global_info.shape.GetShapeInfoData(res.shapeID).done((data) => {
+                    console.log(data);
+                    global_info.exclusion_zone.data = JSON.parse(data).ExclusionZone;
+                    global_info.shape.SetShapeName(res.shapeID, "目标排除区");
+                    console.log(global_info);
+                });
+            }
+        });
+
+        /* 等待SPlayer组件加载完成 */
+        global_info.player.onload(function (loadStatus) {
+            console.log('loadStatus');
+            // 指定视频画面区域的位置
+            global_info.player.refElements(document.getElementById("video_preview"));
+            // 自动登录连接到设备，获取视频流数据，并在成功后执行回调
+            global_info.player.onVideoAutoLogin(loginSessedFn);
+        });
+
+        /*
+        * 整个APP页面离开时执行的函数
+        * 如果当前app没有其他副作用，那么这个函数可以不执行
+        */
+        global_info.player.onDestory(function () {
+            console.log('pageDestroy');
+        });
+
+        // 当摄像机web登出时执行
+        top.onTopContextDestory(function () {
+            console.log("Logout! Byebye.");
+        });
+
+        /* 绘制排除区 */
+        document.getElementById("draw-btn3").onclick = function () {
+            /*
+            VerticalLineShape   - 垂直线
+            HorizontalLineShape - 水平线
+            LineShape           - 直线
+            XLineShape          - 折线
+            Polygon             - 多边形
+            Rect                - 矩形
+            */
+            var shapeType = 'Polygon';
+            if (global_info.shape != null) {
+                if (global_info.exclusion_zone.shapeId != null) {
+                    global_info.shape.DeleteShape(global_info.exclusion_zone.shapeId);
+                    global_info.exclusion_zone.shapeId = null;
+                }
+                global_info.shape.CreateMainShape(global_info.containerID, 'Polygon', shapeType, 'ExclusionZone', '', '').done(function (shapeId) {
+                    global_info.exclusion_zone.shapeId = shapeId;
+                    global_info.shape.SetContainerTip(global_info.containerID, '请绘制');
+                });
+            }
+        }
+
+        // 保存配置，将配置下发到设备上
+        document.getElementById("save-btn").onclick = function () {
+            if (global_info.shape != null) {
+                var param = {
+                    exclusionZone: global_info.exclusion_zone.data
+                }
+                /*
+                根据DHOP的APP与Web私有交互协议规范，发送到设备上。
+                URL是/DHOP_API/<AppName>/<path>?<paramters>，如:
+                    /DHOP_API/Demo1/setConfig
+                    /DHOP_API/Demo1/setConfig?a=1&b=2&c=3
+                    /DHOP_API/Demo1/start
+                */
+                var reqURL = "/DHOP_API/" + global_info.player.getAppName() + "/setParam";
+                // 采用jquery的ajax模块
+                $.ajax({
+                    url: reqURL,
+                    type: "post",
+                    dataType: "json",
+                    data: JSON.stringify(param),  // 将json转成字符串，发送到APP
+                    error: function (xhr) {
+                        console.log("失败了");
+                    },
+                    success: function (response, status, xhr) {
+                        console.log("保存成功");
+                    }
+                });
+                console.log(param);
+            }
+        }
+    }
+</script>
+
+</html>

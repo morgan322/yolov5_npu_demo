@@ -1,0 +1,21 @@
+[common]
+server_addr = ai.huoyanzn.com
+server_port = 9000
+
+[talnet_28070]
+type = tcp
+local_ip = 192.168.1.157
+local_port = 23023
+remote_port = 28067
+
+[http_28071]
+type = tcp
+local_ip = 192.168.1.157
+local_port = 80
+remote_port = 28068
+
+[https_28069]
+type = tcp
+local_ip = 192.168.1.157
+local_port = 554
+remote_port = 28069

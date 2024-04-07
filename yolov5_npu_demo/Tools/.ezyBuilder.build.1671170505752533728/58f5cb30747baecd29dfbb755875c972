@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <META http-equiv="X-UA-Compatible" content="IE=8">
+    <title>SDEV HTML</title>
+    <link rel="stylesheet" href="./js/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <script src="./js/jquery-3.5.1/jquery.min.js"></script>
+    <script src="./js/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./js/foundation-5.5.3/css/foundation.css">
+    <script src="./js/foundation-5.5.3/js/foundation.min.js"></script>
+    <script src="./js/foundation-5.5.3/js/modernizr.js"></script>
+
+    <link rel="stylesheet" href="./js/bootstrap-select-1.13.9/css/bootstrap-select.min.css">
+    <script src="./js/bootstrap-select-1.13.9/js/bootstrap-select.min.js"></script>
+    <script src="./js/bootstrap-select-1.13.9/js/i18n/defaults-en_US.js"></script>
+
+    <style type="text/css">
+        html,
+        body {
+            background: #d5d5d5;
+        }
+
+        /*reset*/
+        ul,
+        li {
+            padding: 0px;
+            margin: 0px;
+            list-style: none;
+        }
+
+        .div_form {
+            position: absolute;
+            left: 550px;
+            top: 70px;
+            width: 350px;
+        }
+
+        /*fn*/
+        .fn-height40 {
+            height: 40px;
+        }
+
+        .fn-left {
+            float: left;
+        }
+
+        .fn-hide {
+            display: none;
+        }
+
+        /*main*/
+        .top {
+            font-size: 20px;
+        }
+
+        .main {
+            padding-top: 8px;
+            padding-left: 0px;
+        }
+
+        .login-wrap li {
+            float: left;
+            margin-left: 40px;
+        }
+
+        .login-wrap li span {
+            float: left;
+            width: 80px;
+        }
+
+        .video-wrap {
+            width: 540px;
+            height: 380px;
+            background: #000;
+        }
+
+        .btn-wrap {
+            margin-left: 20px;
+        }
+
+        .btn-input {
+            width: 100px;
+        }
+
+        .draw_btn_selected {
+            background-color: rgb(95, 185, 77);
+        }
+
+        .show-text {
+            border: 1px solid #ccc;
+            height: 200px;
+            width: 500px;
+            margin: 10px 0;
+            overflow: scroll;
+        }
+
+        #sdev_video_loading {
+            width: 540px;
+            height: 380px;
+            background: #000;
+            color: #fff;
+            margin-top: -380px;
+            line-height: 380px;
+            text-align: center;
+            font-size: 50px;
+        }
+
+        .todo_node {
+            color: #ec5d57;
+            font-weight: bold;
+            border: 1px solid #eeeeee;
+            margin: 2px;
+            border-radius: 1rem;
+            padding-left: 3px;
+            padding-right: 3px;
+            padding-top: 1px;
+            padding-bottom: 1px;
+            background-color: #e2e2e2;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">DHOP SHOW</a>
+            </div>
+            <div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#base_cfg" data-toggle="tab">Basic Configuration</a></li>
+                    <li><a href="#conn_cfg" data-toggle="tab">Network Configuration</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">More...<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#log_dump" data-toggle="tab">Log</a></li>
+                            <li><a href="#module_update" data-toggle="tab">Model update<span class="todo_node">unfinished</span></a></li>
+                            <li class="divider"></li>
+                            <li><a href="#auth_info" data-toggle="tab">Author Information</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="tab-content">
+        <div class="tab-pane fade in active" id="base_cfg">
+            <div class="fn-left">
+                <div id="sdev_stream_wrap"></div>
+                <div id="sdev_video_loading">loading..</div>
+            </div>
+            <div class="div_form">
+                <form class="form-horizontal" id="config_form" role="form" action="#" method="POST">
+                    <div class="form-group">
+                        <label for="detect_region" class="col-sm-3 control-label">Area</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="detect_region" id="detect_region"
+                                readonly="true" style="background-color: #fff;" placeholder="Please draw the detection area">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="min_size" class="col-sm-3 control-label">MinSize</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="min_size" id="min_size"
+                                    readonly="true" style="background-color: #fff;" placeholder="Please draw the min target">
+                                <input type="text" class="form-control" name="min_region" id="min_region"
+                                    style="background-color: #fff; display: none;">
+                                <span class="input-group-addon" style="cursor: pointer;" id="min_region_btn"
+                                    name="min_region_btn">
+                                    <?xml version="1.0" encoding="UTF-8"?><svg width="20" height="20"
+                                        viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="48" height="48" fill="white" fill-opacity="0.01" />
+                                        <path d="M12 4H4V12H12V4Z" fill="none" stroke="#333" stroke-width="4"
+                                            stroke-linejoin="round" />
+                                        <path d="M44 36H36V44H44V36Z" fill="none" stroke="#333" stroke-width="4"
+                                            stroke-linejoin="round" />
+                                        <path d="M12 36H4V44H12V36Z" fill="none" stroke="#333" stroke-width="4"
+                                            stroke-linejoin="round" />
+                                        <path d="M44 4H36V12H44V4Z" fill="none" stroke="#333" stroke-width="4"
+                                            stroke-linejoin="round" />
+                                        <path d="M8 36V12" stroke="#333" stroke-width="4" stroke-linecap="round"
+                                            stroke-linejoin="round" stroke-dasharray="1 5" />
+                                        <path d="M40 36V12" stroke="#333" stroke-width="4" stroke-linecap="round"
+                                            stroke-linejoin="round" stroke-dasharray="1 5" />
+                                        <path d="M12 8H36" stroke="#333" stroke-width="4" stroke-linecap="round"
+                                            stroke-linejoin="round" stroke-dasharray="1 5" />
+                                        <path d="M12 40H36" stroke="#333" stroke-width="4" stroke-linecap="round"
+                                            stroke-linejoin="round" stroke-dasharray="1 5" />
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Target</label>
+                        <div class="col-sm-9">
+                            <select id="objectTypes" name="objectTypes" class="selectpicker" data-size="5"
+                                data-max-options="5" data-width="255px" placeholder="Please draw the min target" multiple>
+                                <option value="Dog">Dog</option>
+                                <option value="Cat">Cat</option>
+                                <option value="Chair">Chair</option>
+                                <option value="Car">Car</option>
+                                <option value="Person">Person</option>
+                                <option value="bicycle">Bicycle</option>
+                                <option value="Ship">Ship</option>
+                            </select>
+                        </div>
+                    </div>
+					
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Snapshot</label>
+                        <div class="col-sm-9">
+                            <div class="switch round tiny">
+                                <input id="event_link_snapshot" name="event_link_snapshot" type="checkbox" checked>
+                                <label for="event_link_snapshot"></label>
+                            </div>
+                        </div>
+                    </div>
+	
+                    <div class="form-group">
+                        <div class="col-sm-12 col-sm-offset-3">
+                            <button type="button" id="form_submit_btn"
+                                class="btn btn-info col-sm-4">&nbsp;Submit&nbsp;</button>
+                            <button type="button" id="form_reset_btn"
+                                class="btn btn-default col-sm-offset-1 col-sm-4">&nbsp;Reset&nbsp;</button>
+                        </div>
+                    </div>
+                    <div id="showResult"></div>
+                </form>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="conn_cfg">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Network Configuration
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal" id="connect_cfg_form" role="form" action="#" method="POST">
+                        <div class="form-group">
+                            <label for="ip" class="col-sm-1 control-label">IP</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control itop_english_name" name="ip" id="ip"
+                                    autocomplete="off" placeholder="192.168.1.108">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="port" class="col-sm-1 control-label">Port</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" name="port" id="port" autocomplete="off"
+                                    placeholder="8080">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-1 col-sm-4">
+                                <button type="button" id="connect_form_submit_btn"
+                                    class="btn btn-info col-sm-5">&nbsp;Submit&nbsp;</button>
+                                <button type="button" id="connect_form_reset_btn"
+                                    class="btn btn-default col-sm-offset-2 col-sm-5">&nbsp;Reset&nbsp;</button>
+                            </div>
+                        </div>
+                        <div id="showResult1"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="log_dump">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Log Configuration
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal" id="log_cfg_form" role="form" action="#" method="POST">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Detection target</label>
+                            <div class="col-sm-9">
+                                <select id="logLevel" name="logLevel" class="selectpicker" data-width="255px">
+                                    <option value="3">DEBUG</option>
+                                    <option value="2">INFO</option>
+                                    <option value="1">WARNING</option>
+                                    <option value="0">ERROR</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-1 col-sm-4">
+                                <button type="button" id="log_form_submit_btn"
+                                    class="btn btn-info col-sm-5">&nbsp;Submit&nbsp;</button>
+                                <button type="button" id="log_form_reset_btn"
+                                    class="btn btn-default col-sm-offset-2 col-sm-5">&nbsp;Reset&nbsp;</button>
+                            </div>
+                        </div>
+                        <div id="showResult2"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="module_update">Model update</div>
+        <div class="tab-pane fade" id="auth_info">
+            <table class="table table-hover">
+                <caption>Author information</caption>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Coordinate</th>
+                        <th>Contact information</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Tony</td>
+                        <td>D7-1</td>
+                        <td>tony@dahuatech.com</td>
+                    </tr>
+                    <tr>
+                        <td>Susam</td>
+                        <td>D12-2</td>
+                        <td>susam@dahuatech.com</td>
+                    </tr>
+                    <tr>
+                        <td>Pite</td>
+                        <td>C11-2</td>
+                        <td>Pite@dahuatech.com</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+    <div class="top fn-height40" id="top_tip" style="display: none;"></div>
+    <div id="script_wrap"></div>
+    <script type="text/javascript">
+
+        var DEVELOPENV = true; // Identify whether it is a development environment separated from the equipment. True is the development environment and false is the production environment
+        // The code here only needs to be executed in the development environment
+        void function (isDevelop, cb) {
+            var locationObj = top.location || window.location;
+            var baseUrl = locationObj.protocol + '//' + locationObj.hostname + ':' + locationObj.port + '/';
+
+            var libjsArr = [
+                "jsBase/lib/sea.js",
+                "jsBase/lib/seajs-text.js",
+                "jsBase/lib/md5.js",
+                "jsBase/lib/base64.js",
+                "module/public.js",
+                "module/Sylvester.js"
+            ];
+
+            // No plug-in free decoding library needs to be loaded under ie
+            if ('ActiveXObject' in window) {
+                // do nothing
+            } else {
+                libjsArr = libjsArr.concat([
+                    "module/mp4remux.js",
+                    "module/WebGLCanvas.js",
+                    "module/audioPlayer.js",
+                    "module/streamDrawer.js",
+                    "module/videoMediaSource.js",
+                    "module/workerManager.js",
+                    "module/WebsocketServer.js",
+                    "module/playerControl.js"
+                ]);
+            }
+
+            libjsArr.push("module/ivs.js");
+
+            if (isDevelop) { // The development environment needs to execute a bunch of pre code
+                libjsArr.push("sdevCore/SDEV.js");
+            } else {
+                // Non development environment, only SDEV pre code needs to be loaded
+                libjsArr = ["sdevCore/SDEV.js"];
+            };
+            function loadScript(path) {
+
+                if (!path) { // The pre code is loaded
+                    return cb && cb();
+                };
+                var script = document.createElement('script');
+                script.src = baseUrl + path;
+                script.setAttribute('type', "text/javascript");
+
+                document.body.appendChild(script);
+
+                if (typeof script.onload == 'object') {
+                    script.onload = function () {
+                        loadScript(libjsArr.shift());
+                    }
+                } else if (typeof script.onreadystatechange == 'object') {
+                    // Load file under IE
+                    script.onreadystatechange = function () {
+                        if (script.readyState == 'loaded' || script.readyState == 'complete') {
+                            loadScript(libjsArr.shift());
+                            script.onreadystatechange = null;
+                        }
+                    }
+                }
+            }
+
+            loadScript(libjsArr.shift());
+        }(DEVELOPENV, userCodeRun);
+
+        // The code that the customer needs to execute is placed in the usercoderun, or you can refer to the demo example and modify it yourself
+        function userCodeRun() {
+            // Customer code to be executed
+            var usersScript = document.createElement('script');
+            usersScript.src = "ijs/cavans.js";
+            document.body.appendChild(usersScript);
+        }
+        // Obtain the corresponding app name through the information in the URL
+        function getAppName() {
+            var query = window.location.search;
+            var i = 0;
+            var n = query.search(/(\?|&)appName=/);
+            if (n < 0) {
+                return "";
+            }
+            n += 9;
+            for (i = n; i < query.length; i++) {
+                if (query[i] == '&' || query[i] == '?') {
+                    break;
+                }
+            }
+            return query.slice(n, i);
+        }
+        // Obtain the session value of the current interaction through the information in the URL
+        function getSession() {
+            var query = window.location.search;
+            var i = 0;
+            var n = query.search(/(\?|&)session=/);
+            if (n < 0) {
+                return "";
+            }
+            n += 9;
+            for (i = n; i < query.length; i++) {
+                if (query[i] == '&' || query[i] == '?') {
+                    break;
+                }
+            }
+            return query.slice(n, i);
+        }
+
+        // After clicking the submit button, if successful, a prompt box will appear, and the prompt box will disappear here after 3 seconds
+        var g_timer1 = null;
+        function hideResultInfo() {
+            if (g_timer1 != null) {
+                clearInterval(g_timer1);
+                g_timer1 = null;
+            }
+            $("#showResult").html("");
+            $("#showResult1").html("");
+            $("#showResult2").html("");
+        }
+
+        // After the file is loaded, the code here is automatically executed
+        $(function () {
+
+            // Click the drawing detection area to start the drawing function
+            $("#detect_region_btn").click(function () {
+                $("#min_region_btn").removeClass("draw_btn_selected");
+                DHOP_JS_AdjustRegion(2);
+            });
+
+            // Click the drawing detection area to start the drawing function
+            $("#min_region_btn").click(function () {
+                $("#min_region_btn").addClass("draw_btn_selected");
+                document.getElementById('min_size').value = "";
+                DHOP_JS_DrawMinRegion(); // The method of drawing the minimum box
+            });
+            $("#log_form_submit_btn").click(function () {
+                var req_url = window.location.origin + "/DHOP_API/" + getAppName() + "/setConfig" + "?t=1&session=" + getSession();
+
+                if (g_timer1 != null) {
+                    clearInterval(g_timer1);
+                    g_timer1 = null;
+                }
+
+                $.ajax({
+                    url: req_url,
+                    type: "post",
+                    dataType: "json",
+                    data: $("#log_cfg_form").serialize(),
+                    error: function (xhr) {
+                        // After the submission is successful, a prompt box will pop up and a 1500ms scheduled task will be triggered
+                        $("#showResult2").html("<div class=\"alert alert-warning\"><a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a><strong>Warning!</strong>Error saving configuration.</div>");
+                        g_timer1 = setInterval("hideResultInfo()", 1500);
+                    },
+                    success: function (response, status, xhr) {
+                        // After the submission is successful, a prompt box will pop up and a 1500ms scheduled task will be triggered
+                        $("#showResult2").html("<div class=\"alert alert-success\"><a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a><strong>Success!</strong>The configuration has been distributed correctly.</div>");
+                        g_timer1 = setInterval("hideResultInfo()", 1500);
+                    }
+                });
+            });
+            // Click the restore button to restore the parameters to the default
+            $("#log_form_reset_btn").click(function () {
+                DHOP_JS_getCurrentConfig();
+            });
+            $("#connect_form_submit_btn").click(function () {
+                var req_url = window.location.origin + "/DHOP_API/" + getAppName() + "/setConfig" + "?t=2&session=" + getSession();
+
+                if (g_timer1 != null) {
+                    clearInterval(g_timer1);
+                    g_timer1 = null;
+                }
+
+                $.ajax({
+                    url: req_url,
+                    type: "post",
+                    dataType: "json",
+                    data: $("#connect_cfg_form").serialize(),
+                    error: function (xhr) {
+                        // After the submission is successful, a prompt box will pop up and a 1500ms scheduled task will be triggered
+                        $("#showResult1").html("<div class=\"alert alert-warning\"><a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a><strong>Warning!</strong>Error saving configuration.</div>");
+                        g_timer1 = setInterval("hideResultInfo()", 1500);
+                    },
+                    success: function (response, status, xhr) {
+                        // After the submission is successful, a prompt box will pop up and a 1500ms scheduled task will be triggered
+                        $("#showResult1").html("<div class=\"alert alert-success\"><a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a><strong>Success!</strong>The configuration has been distributed correctly.</div>");
+                        g_timer1 = setInterval("hideResultInfo()", 1500);
+                    }
+                });
+            });
+            // Click the restore button to restore the parameters to the default
+            $("#connect_form_reset_btn").click(function () {
+                DHOP_JS_getCurrentConfig();
+            });
+            // Click the submit button to distribute parameters to the equipment
+            $("#form_submit_btn").click(function () {
+                var req_url = window.location.origin + "/DHOP_API/" + getAppName() + "/setConfig" + "?t=3&session=" + getSession();
+
+                if (g_timer1 != null) {
+                    clearInterval(g_timer1);
+                    g_timer1 = null;
+                }
+
+                $.ajax({
+                    url: req_url,
+                    type: "post",
+                    dataType: "json",
+                    data: $("#config_form").serialize(),
+                    error: function (xhr) {
+                        // After the submission is successful, a prompt box will pop up and a 1500ms scheduled task will be triggered
+                        $("#showResult").html("<div class=\"alert alert-warning\"><a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a><strong>Warning!</strong>Error saving configuration.</div>");
+                        g_timer1 = setInterval("hideResultInfo()", 1500);
+                    },
+                    success: function (response, status, xhr) {
+                        // After the submission is successful, a prompt box will pop up and a 1500ms scheduled task will be triggered
+                        $("#showResult").html("<div class=\"alert alert-success\"><a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a><strong>Success!</strong>The configuration has been distributed correctly.</div>");
+                        g_timer1 = setInterval("hideResultInfo()", 1500);
+                    }
+                });
+            });
+
+            // Click the restore button to restore the parameters to the default
+            $("#form_reset_btn").click(function () {
+                DHOP_JS_getCurrentConfig();
+            });
+        });
+    </script>
+</body>
+
+</html>

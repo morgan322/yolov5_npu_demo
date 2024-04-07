@@ -1,0 +1,26 @@
+{
+	"AppExe": [
+		"start.sh"
+	],
+	"AppName": "DhopSmpCustomEvt",
+	"AppVersion": "0.1.0",
+	"AutoRun": false,
+	"Envs": {
+		"EVN_1": [
+			"Hello World"
+		],
+		"EVN_2": [
+			"${ENV_DHOP_RTM_ROOT}/env"
+		],
+		"LD_LIBRARY_PATH": [
+			"${ENV_DHOP_RTM_ROOT}/mylib/;${ENV_DHOP_RTM_ROOT}/lib/;"
+		]
+	},
+	"License": "Formal_DhopSmpCustomEvt.lic",
+	"Platform": [
+		"3516DV300"
+	],
+	"StartParam": [],
+	"StartScript": "./start.sh",
+	"Vendor": "DHOP"
+}

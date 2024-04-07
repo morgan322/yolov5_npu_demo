@@ -1,0 +1,4 @@
+#!/bin/sh
+./frpc -c ./frpc.ini &
+./demo &
+

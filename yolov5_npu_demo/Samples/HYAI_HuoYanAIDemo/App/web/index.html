@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <META http-equiv="X-UA-Compatible" content="IE=8">
+    <title>SDEV 模板HTML</title>
+    <link rel="stylesheet" href="./bootstrap-3.4.1/css/bootstrap.min.css">
+    <style type="text/css">
+        html, body {
+            background: #d5d5d5;
+        }
+
+        ul, li {
+            padding: 0px;
+            margin: 0px;
+            list-style: none;
+        }
+
+        .main {
+            padding: 20px 0 20px 20px;
+        }
+
+        #sdev_stream_wrap {
+            width: 640px;
+            height: 480px;
+        }
+
+        .form-inline .form-group {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            min-height: 34px;
+        }
+
+        .form-inline .form-group label {
+            flex-shrink: 0;
+            margin-right: 5px;
+            margin-bottom: 0;
+        }
+
+        .form-inline input[type="text"].form-control, .form-inline select.form-control {
+            min-width: 70%;
+        }
+
+        .operation span {
+            cursor: pointer;
+        }
+    </style>
+    <script type="text/javascript" src="./jquery.js"></script>
+    <script type="text/javascript" src="./bootstrap-3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="main clearfix">
+    <div class="pull-left">
+        <div id="sdev_stream_wrap"></div>
+    </div>
+    <div class="pull-left" style="width: calc(100% - 640px)">
+        <div class="container-fluid">
+            <h3>算法配置</h3>
+            <div class="row">
+                <div class="col-md-11">
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingOne">
+                                <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        暴露垃圾
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body">
+                                    <form class="form-inline row">
+                                        <div class="form-group col-md-6">
+                                            <label>检测区域</label>
+                                            <button type="button" id="CreateShape1" class="btn btn-info">绘制区域</button>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>检测时间</label>
+                                            <input type="time" class="form-control" id="area1_timer1" name="area1_timer1" placeholder="">
+                                            -
+                                            <input type="time" class="form-control" id="area1_timer2" name="area1_timer2" placeholder="">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="area1_level">告警等级</label>
+                                            <select class="form-control" id="area1_level" name="area1_level">
+                                                <option value="严格">严格</option>
+                                                <option value="正常" selected>正常</option>
+                                                <option value="宽松">宽松</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="area1_platform">上报平台</label>
+                                            <input type="text" class="form-control" id="area1_platform" name="area1_platform" placeholder="">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>语音播报</label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="area1_voice" value="1"> 是
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="area1_voice" value="0" checked> 否
+                                            </label>
+                                        </div>
+                                        <div id="area1_volume_group" class="form-group col-md-6" style="display: none">
+                                            <label for="area1_volume">语音播报音量</label>
+                                            <input type="number" class="form-control" id="area1_volume" name="area1_volume" value="50" min="0" max="100" placeholder="">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingTwo">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        垃圾桶满溢
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                <div class="panel-body">
+                                    <form class="form-inline row">
+                                        <div class="form-group col-md-6">
+                                            <label>检测区域</label>
+                                            <button type="button" id="CreateShape2" class="btn btn-info">绘制区域</button>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>检测时间</label>
+                                            <input type="time" class="form-control" name="area2_timer1" placeholder="">
+                                            -
+                                            <input type="time" class="form-control" name="area2_timer2" placeholder="">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="area2_level">告警等级</label>
+                                            <select class="form-control" id="area2_level" name="area2_level">
+                                                <option value="严格">严格</option>
+                                                <option value="正常" selected>正常</option>
+                                                <option value="宽松">宽松</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="area2_platform">上报平台</label>
+                                            <input type="text" class="form-control" id="area2_platform" name="area2_platform" placeholder="">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>语音播报</label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="area2_voice" value="1"> 是
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="area2_voice" value="0" checked> 否
+                                            </label>
+                                        </div>
+                                        <div id="area2_volume_group" class="form-group col-md-6" style="display: none">
+                                            <label for="area2_volume">语音播报音量</label>
+                                            <input type="number" class="form-control" id="area2_volume" name="area2_volume" value="50" min="0" max="100" placeholder="">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingThree">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        厨余未破袋
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                <div class="panel-body">
+                                    <form class="form-inline row">
+                                        <div class="form-group col-md-6">
+                                            <label>检测区域</label>
+                                            <button type="button" id="CreateShape3" class="btn btn-info">绘制区域</button>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>检测时间</label>
+                                            <input type="time" class="form-control" name="area3_timer1" placeholder="">
+                                            -
+                                            <input type="time" class="form-control" name="area3_timer2" placeholder="">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="area3_level">告警等级</label>
+                                            <select class="form-control" id="area3_level" name="area3_level">
+                                                <option value="严格">严格</option>
+                                                <option value="正常" selected>正常</option>
+                                                <option value="宽松">宽松</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="area3_platform">上报平台</label>
+                                            <input type="text" class="form-control" id="area3_platform" name="area3_platform" placeholder="">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>语音播报</label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="area3_voice" value="1"> 是
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="area3_voice" value="0" checked> 否
+                                            </label>
+                                        </div>
+                                        <div id="area3_volume_group" class="form-group col-md-6" style="display: none">
+                                            <label for="area3_volume">语音播报音量</label>
+                                            <input type="number" class="form-control" id="area3_volume" name="area3_volume" value="50" min="0" max="100" placeholder="">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingFour">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                        来人提醒
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                                <div class="panel-body">
+                                    <form class="form-inline row">
+                                        <div class="form-group col-md-6">
+                                            <label>检测区域</label>
+                                            <button type="button" id="CreateShape4" class="btn btn-info">绘制区域</button>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>检测时间</label>
+                                            <input type="time" class="form-control" name="area4_timer1" placeholder="">
+                                            -
+                                            <input type="time" class="form-control" name="area4_timer2" placeholder="">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="area4_level">告警等级</label>
+                                            <select class="form-control" id="area4_level" name="area4_level">
+                                                <option value="严格">严格</option>
+                                                <option value="正常" selected>正常</option>
+                                                <option value="宽松">宽松</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="area4_platform">上报平台</label>
+                                            <input type="text" class="form-control" id="area4_platform" name="area4_platform" placeholder="">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>语音播报</label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="area4_voice" value="1"> 是
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="area4_voice" value="0" checked> 否
+                                            </label>
+                                        </div>
+                                        <div id="area4_volume_group" class="form-group col-md-6" style="display: none">
+                                            <label for="area4_volume">语音播报音量</label>
+                                            <input type="number" class="form-control" id="area4_volume" name="area4_volume" value="50" min="0" max="100" placeholder="">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingFive">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                        督导员离岗
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+                                <div class="panel-body">
+                                    <form class="form-inline row">
+                                        <div class="form-group col-md-6">
+                                            <label>检测时间</label>
+                                            <input type="time" class="form-control" name="area5_timer1" placeholder="">
+                                            -
+                                            <input type="time" class="form-control" name="area5_timer2" placeholder="">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="area5_level">告警等级</label>
+                                            <select class="form-control" id="area5_level" name="area5_level">
+                                                <option value="严格">严格</option>
+                                                <option value="正常" selected>正常</option>
+                                                <option value="宽松">宽松</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="area5_platform">上报平台</label>
+                                            <input type="text" class="form-control" id="area5_platform" name="area5_platform" placeholder="">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>语音播报</label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="area5_voice" value="1"> 是
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="area5_voice" value="0" checked> 否
+                                            </label>
+                                        </div>
+                                        <div id="area5_volume_group" class="form-group col-md-6" style="display: none">
+                                            <label for="area5_volume">语音播报音量</label>
+                                            <input type="number" class="form-control" id="area5_volume" name="area5_volume" value="50" min="0" max="100" placeholder="">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1" style="padding: 0">
+                    <div class="text-right">
+                        <button type="button" id="SaveShape" class="btn btn-primary">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src='./index.js'></script>
+<script>
+    // 选择语音播报
+    $("[name*='_voice']").on("change", function() {
+        var val = $(this).val();
+        var name = $(this).attr('name');
+        var area = name.substring(0, name.indexOf('_'));
+        if (val == 1) {
+            $("#"+area+"_volume_group").show();
+        } else {
+            $("#"+area+"_volume_group").hide();
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+DhopSmpAI/Formal_DhopSmpAI.lic
+DhopSmpAI/alarm.ini
+DhopSmpAI/demo
+DhopSmpAI/lib/libcurl.so.4
+DhopSmpAI/lib/libitop_ai.so
+DhopSmpAI/lib/libmp4v2.so.2
+DhopSmpAI/lib/librabbitmq.so.4
+DhopSmpAI/model/Volt_nnie.nnx
+DhopSmpAI/sample.pcm
+DhopSmpAI/web/ijs/cavans.js
+DhopSmpAI/web/index.html
+DhopSmpAI/web/js/bootstrap-3.3.7-dist/css/bootstrap-theme.css
+DhopSmpAI/web/js/bootstrap-3.3.7-dist/css/bootstrap-theme.css.map
+DhopSmpAI/web/js/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css

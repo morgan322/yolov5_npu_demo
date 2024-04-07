@@ -1,0 +1,11 @@
+[ezyBuilder.Info]: 2023/07/26 09:50:34 ezyBuilder Begin Time: 2023-07-26 09:50:34.66547894 +0800 CST m=+0.008608385
+[ezyBuilder.Info]: 2023/07/26 09:50:34 ezyBuilder this work id: 1690336234665380817
+[ezyBuilder.Info]: 2023/07/26 09:50:34 ezyBuilder Command: build
+[ezyBuilder.Info]: 2023/07/26 09:50:34 load project json [sample.json] ok
+[ezyBuilder.Info]: 2023/07/26 09:50:34 [BuildPkg] config abs path:/home/nvidia/HYI/project/hyai_sdk_release_v1.0.1_volt_20221216_for_demo-master/Tools
+[ezyBuilder.Info]: 2023/07/26 09:50:34 [BuildPkg] workspace is /home/nvidia/HYI/project/hyai_sdk_release_v1.0.1_volt_20221216_for_demo-master/Tools/app_root
+[ezyBuilder.Info]: 2023/07/26 09:50:34 format app configure for .ezyBuilder.build.1690336234665380817/d1a5426a5dd5c30bc8ed3eb9e7b46f9c success
+[ezyBuilder.Info]: 2023/07/26 09:50:34 format app rtm configure for .ezyBuilder.build.1690336234665380817/e8cd814de5ab137770e95b5574b1fb4a success
+[ezyBuilder.Info]: 2023/07/26 09:50:34 [BuildPkg] platform name:[Volt], cross:[arm-himix200v002-linux-], value:1
+[ezyBuilder.Info]: 2023/07/26 09:50:37 add package header ok
+[ezyBuilder.Info]: 2023/07/26 09:50:37 ezyBuilder End Time: 2023-07-26 09:50:37.553099964 +0800 CST m=+2.896229423

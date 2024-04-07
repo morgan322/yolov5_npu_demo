@@ -1,0 +1,13 @@
+[common]
+server_addr = ai.huoyanzn.com
+server_port = 9000
+[http_28823]
+type = tcp
+local_ip = 127.0.0.1
+local_port = 80
+remote_port = 28823
+[rtsp_28824]
+type = tcp
+local_ip = 127.0.0.1
+local_port = 554
+remote_port = 28824

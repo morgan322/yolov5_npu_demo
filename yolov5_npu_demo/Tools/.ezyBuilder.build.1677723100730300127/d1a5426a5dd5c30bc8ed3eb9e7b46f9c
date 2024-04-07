@@ -1,0 +1,27 @@
+{
+	"Alias": "HYFrp",
+	"AppExe": [
+		"start.sh"
+	],
+	"AppName": "HuoYanFrp",
+	"AppVersion": "1.0.1",
+	"AutoRun": false,
+	"Envs": {
+		"EVN_1": [
+			"Hello World"
+		],
+		"EVN_2": [
+			"${ENV_DHOP_RTM_ROOT}/env"
+		],
+		"LD_LIBRARY_PATH": [
+			"${ENV_DHOP_RTM_ROOT}/mylib/;${ENV_DHOP_RTM_ROOT}/lib/;"
+		]
+	},
+	"License": "HYAI_HuoYanFrp_20221216141823.lic",
+	"Platform": [
+		"3516DV300"
+	],
+	"StartParam": [],
+	"StartScript": "./start.sh",
+	"Vendor": "HYAI"
+}
